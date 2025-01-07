@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="tetris pro"
-run/main_scene="res://Scenes/node_2d.tscn"
+run/main_scene="res://Scenes/Game.tscn"
 config/features=PackedStringArray("4.3", "C#", "Mobile")
 config/icon="res://icon.svg"
 
@@ -23,7 +23,6 @@ window/size/viewport_height=480
 [dotnet]
 
 project/assembly_name="tetris pro"
-project/solution_directory="C:\\Users\\leo\\Documents\\tetris-pro"
 
 [input]
 

@@ -1,8 +1,23 @@
-[gd_scene load_steps=7 format=3 uid="uid://gi7as04tvli7"]
+[gd_scene load_steps=55 format=3 uid="uid://gi7as04tvli7"]
 
 [ext_resource type="Script" path="res://Scripts/Speen.cs" id="1_e1y0t"]
 [ext_resource type="Script" path="res://Scripts/Playfield.cs" id="1_yuxfu"]
 [ext_resource type="TileSet" uid="uid://bylu3qdl5tv4f" path="res://Tilesets/default.tres" id="2_31qic"]
+[ext_resource type="Texture2D" uid="uid://bm82sy5fkwkch" path="res://Effect Images/default.png" id="4_at377"]
+[ext_resource type="Texture2D" uid="uid://bg1cr2kd4yx1i" path="res://Effect Images/tspin.aesprite.png" id="5_bykp0"]
+[ext_resource type="Texture2D" uid="uid://obp1ls18ga3u" path="res://Effect Images/blockthing.png" id="6_i7dqk"]
+[ext_resource type="AudioStream" uid="uid://dn1rlhauk2j08" path="res://Sounds/Default/move.wav" id="7_4ww5p"]
+[ext_resource type="Script" path="res://Scripts/GarbageEffect.cs" id="7_d3e5s"]
+[ext_resource type="AudioStream" uid="uid://bwbmi6c1xk4mv" path="res://Sounds/Default/softdrop.wav" id="8_w4e1k"]
+[ext_resource type="AudioStream" uid="uid://dddre8tjfdgum" path="res://Sounds/Default/spin.wav" id="9_02uiv"]
+[ext_resource type="AudioStream" uid="uid://eqybb7q0twri" path="res://Sounds/Default/harddrop.wav" id="9_qyce7"]
+[ext_resource type="AudioStream" uid="uid://b0gdete74y65q" path="res://Sounds/Default/rotate.wav" id="10_3nc4u"]
+[ext_resource type="AudioStream" uid="uid://d3gqkcquv6iqa" path="res://Sounds/Default/clearline.wav" id="11_7bi8o"]
+[ext_resource type="AudioStream" uid="uid://bjkce3rsmi6df" path="res://Sounds/Default/clearquad.wav" id="12_prdno"]
+[ext_resource type="AudioStream" uid="uid://c113tkbtnxyav" path="res://Sounds/Default/clearbtb.wav" id="13_yydwl"]
+[ext_resource type="AudioStream" uid="uid://jm40f214w43t" path="res://Sounds/Default/clearspin.wav" id="14_qopr3"]
+[ext_resource type="AudioStream" uid="uid://bh6an2trv4jj5" path="res://Sounds/Default/btb1.wav" id="15_vhy3w"]
+[ext_resource type="AudioStream" uid="uid://dr8aft6bbun7s" path="res://Sounds/Default/hitfloor.wav" id="16_v5le3"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_c4r8f"]
 viewport_path = NodePath("Player/PlayerMesh/InputFix/SubViewport")
@@ -19,11 +34,245 @@ resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_sk17q")
 size = Vector2(4, 3)
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_u78w8"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_afggm"]
+atlas = ExtResource("5_bykp0")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jgrwl"]
+atlas = ExtResource("5_bykp0")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hjq21"]
+atlas = ExtResource("5_bykp0")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v1p43"]
+atlas = ExtResource("5_bykp0")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bmwyb"]
+atlas = ExtResource("5_bykp0")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ql6mq"]
+atlas = ExtResource("5_bykp0")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1c50r"]
+atlas = ExtResource("5_bykp0")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tq788"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_afggm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jgrwl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hjq21")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v1p43")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bmwyb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ql6mq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1c50r")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ia48d"]
+atlas = ExtResource("6_i7dqk")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_15q5j"]
+atlas = ExtResource("6_i7dqk")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dnawv"]
+atlas = ExtResource("6_i7dqk")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5qomy"]
+atlas = ExtResource("6_i7dqk")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n2frj"]
+atlas = ExtResource("6_i7dqk")
+region = Rect2(32, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k4687"]
+atlas = ExtResource("6_i7dqk")
+region = Rect2(40, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_75hdi"]
+atlas = ExtResource("6_i7dqk")
+region = Rect2(48, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qmjdi"]
+atlas = ExtResource("6_i7dqk")
+region = Rect2(56, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0w1bu"]
+atlas = ExtResource("6_i7dqk")
+region = Rect2(64, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wllwt"]
+atlas = ExtResource("6_i7dqk")
+region = Rect2(72, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1kidp"]
+atlas = ExtResource("6_i7dqk")
+region = Rect2(80, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qj8ff"]
+atlas = ExtResource("6_i7dqk")
+region = Rect2(88, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hagx7"]
+atlas = ExtResource("6_i7dqk")
+region = Rect2(96, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8rvjl"]
+atlas = ExtResource("6_i7dqk")
+region = Rect2(104, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lgqhv"]
+atlas = ExtResource("6_i7dqk")
+region = Rect2(112, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_42o3b"]
+atlas = ExtResource("6_i7dqk")
+region = Rect2(120, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gf4s0"]
+atlas = ExtResource("6_i7dqk")
+region = Rect2(128, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wnmlu"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ia48d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_15q5j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dnawv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5qomy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n2frj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k4687")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_75hdi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qmjdi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0w1bu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wllwt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1kidp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qj8ff")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hagx7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8rvjl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lgqhv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_42o3b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gf4s0")
+}],
+"loop": false,
+"name": &"default",
+"speed": 20.0
+}]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ph7p"]
+render_priority = 1
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+specular_mode = 2
+albedo_texture = ExtResource("4_at377")
+texture_filter = 0
+
+[sub_resource type="Curve" id="Curve_11its"]
+_data = [Vector2(0, 1), 0.0, -1.0048, 0, 0, Vector2(1, 0), -1.0021, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_lmil6"]
+curve = SubResource("Curve_11its")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gpbu7"]
+particle_flag_align_y = true
+inherit_velocity_ratio = 0.5
+gravity = Vector3(0, 0, 0)
+damping_min = 10.0
+damping_max = 10.0
+scale_min = 0.1
+scale_max = 0.1
+scale_curve = SubResource("CurveTexture_lmil6")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0g8ve"]
+shading_mode = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_nb4jt"]
+material = SubResource("StandardMaterial3D_0g8ve")
+radius = 0.25
+height = 0.5
+
 [node name="Game" type="Node3D"]
 
-[node name="Player" type="Node" parent="."]
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5)
+current = true
+fov = 90.0
+
+[node name="Player" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
 
 [node name="PlayerMesh" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
 mesh = SubResource("QuadMesh_b7sji")
 skeleton = NodePath("../..")
 script = ExtResource("1_e1y0t")
@@ -60,7 +309,78 @@ enabled = false
 zoom = Vector2(3, 3)
 editor_draw_limits = true
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5)
-current = true
-fov = 90.0
+[node name="ClearEffect" type="Sprite2D" parent="Player/PlayerMesh/InputFix/SubViewport/Playfield"]
+visible = false
+texture = ExtResource("4_at377")
+
+[node name="TSpinEffect" type="AnimatedSprite2D" parent="Player/PlayerMesh/InputFix/SubViewport/Playfield"]
+visible = false
+modulate = Color(1, 0, 1, 1)
+material = SubResource("CanvasItemMaterial_u78w8")
+sprite_frames = SubResource("SpriteFrames_tq788")
+autoplay = "default"
+
+[node name="BlockPlaceEffect" type="AnimatedSprite2D" parent="Player/PlayerMesh/InputFix/SubViewport/Playfield"]
+visible = false
+material = SubResource("CanvasItemMaterial_u78w8")
+sprite_frames = SubResource("SpriteFrames_wnmlu")
+autoplay = "default"
+
+[node name="Sounds" type="Node" parent="Player/PlayerMesh/InputFix/SubViewport/Playfield"]
+
+[node name="move" type="AudioStreamPlayer" parent="Player/PlayerMesh/InputFix/SubViewport/Playfield/Sounds"]
+stream = ExtResource("7_4ww5p")
+
+[node name="softdrop" type="AudioStreamPlayer" parent="Player/PlayerMesh/InputFix/SubViewport/Playfield/Sounds"]
+stream = ExtResource("8_w4e1k")
+
+[node name="Harddrop" type="AudioStreamPlayer" parent="Player/PlayerMesh/InputFix/SubViewport/Playfield/Sounds"]
+stream = ExtResource("9_qyce7")
+
+[node name="spin" type="AudioStreamPlayer" parent="Player/PlayerMesh/InputFix/SubViewport/Playfield/Sounds"]
+stream = ExtResource("9_02uiv")
+
+[node name="rotate" type="AudioStreamPlayer" parent="Player/PlayerMesh/InputFix/SubViewport/Playfield/Sounds"]
+stream = ExtResource("10_3nc4u")
+
+[node name="Clearline" type="AudioStreamPlayer" parent="Player/PlayerMesh/InputFix/SubViewport/Playfield/Sounds"]
+stream = ExtResource("11_7bi8o")
+
+[node name="Clearquad" type="AudioStreamPlayer" parent="Player/PlayerMesh/InputFix/SubViewport/Playfield/Sounds"]
+stream = ExtResource("12_prdno")
+
+[node name="Clearbtb" type="AudioStreamPlayer" parent="Player/PlayerMesh/InputFix/SubViewport/Playfield/Sounds"]
+stream = ExtResource("13_yydwl")
+
+[node name="Clearspin" type="AudioStreamPlayer" parent="Player/PlayerMesh/InputFix/SubViewport/Playfield/Sounds"]
+stream = ExtResource("14_qopr3")
+
+[node name="Hitfloor" type="AudioStreamPlayer" parent="Player/PlayerMesh/InputFix/SubViewport/Playfield/Sounds"]
+stream = ExtResource("16_v5le3")
+
+[node name="Btb1" type="AudioStreamPlayer" parent="Player/PlayerMesh/InputFix/SubViewport/Playfield/Sounds"]
+stream = ExtResource("15_vhy3w")
+
+[node name="ClearEffect" type="Sprite3D" parent="Player/PlayerMesh"]
+process_mode = 4
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_4ph7p")
+billboard = 1
+texture = ExtResource("4_at377")
+script = ExtResource("7_d3e5s")
+metadata/startTime = 2000.0
+metadata/startDir = Vector3(-5, -3, 0)
+metadata/startPos = Vector3(0, 0, 0)
+metadata/target = Vector3(3, 2, 0)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Player/PlayerMesh/ClearEffect"]
+process_mode = 4
+visible = false
+cast_shadow = 0
+amount = 500
+lifetime = 0.5
+fixed_fps = 60
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_gpbu7")
+draw_pass_1 = SubResource("SphereMesh_nb4jt")
